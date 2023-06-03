@@ -17,6 +17,7 @@ Dr. Chayn Sun
 
 Ryan Turner
 
-![image](https://github.com/ryn-trnr/GippslandFloodVisualiser/assets/128788495/35933cb2-bff7-459b-a701-d3eadbf9355b)
+
+![image](https://github.com/ryn-trnr/GippslandFloodVisualiser/assets/128788495/4ed4c043-3bb5-4827-b9b8-64fc459d5285)
 
 Web map application interface
