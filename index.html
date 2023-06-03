@@ -1,0 +1,372 @@
+!DOCTYPE HTML>
+<html lang="en">
+<head>
+ <meta charset='utf-8' />
+ <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+ <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+ <link rel="stylesheet" type="text/css" href="style.css">
+
+ <title> GEOM2151 Individual Cloud-Based Open-Source GIS Project, RYAN TURNER, s3924894 </title>
+
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div class="title-box">
+  <h1 class="title">Gippsland Flood Visualiser</h1>
+  <h2 class="description">Web Map Application & Warning System</h2>
+</div>
+
+<div class="information">
+  <h1 class="info">This web map application displays the extents of Gippsland's historical flood events. Use the legend in the bottom right to toggle on/off flood extent overlays.<br><br>Click the live rainfall button to fetch the current precipitation level at Bairnsdale Airport Weather Station. If the current rainfall reading is over 50mm, SA2 Level polygon area overlays will be added to the map canvas to provide a flood threat warning.</h1>
+</div>
+
+<div class="legend">
+  <h1 class="title2">Flood Events</h1>
+</div>
+
+<div class="container"></div>
+
+<div class="rainreading"></div>
+
+<button id="button">Fetch Live Rainfall Data</button>
+
+<nav id="menu"></nav>
+
+<a id="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoidHVybmVycnlhbiIsImEiOiJjbGdrNjQ5MmYwM2NpM2VyMXM5ZWl0NHJlIn0.BMTr2EpZI0YmayojFZ00yg';
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/turnerryan/clhol0yqq00lt01r8gqi60iub',
+  zoom: 7.5,
+  center: [147.734, -37.873]
+});
+
+map.on('load', () => {
+  // add a new vector tile source with ID 'gippsland_boundary'
+  map.addSource('gippsland_boundary', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.coya9fsj'
+  });
+  map.addLayer({
+    'id': 'gippsland_boundary',
+    'type': 'line',
+    'source': 'gippsland_boundary',
+    'source-layer': 'Gippsland_Boundary-24946x',
+    'layout': {
+      // make the layer visible by default
+      'visibility': 'visible'
+    },
+    'paint': {
+      'line-color': '#5a3b01',
+      'line-width': 2
+    }
+  });
+
+  // add a new vector tile source with ID 'gippsland_regions'
+  map.addSource('gippsland_regions', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.3ffhwb4u'
+  });
+  map.addLayer({
+    'id': 'gippsland_regions',
+    'type': 'line',
+    'source': 'gippsland_regions',
+    'source-layer': 'Gippsland_Regions-0sl4su',
+    'layout': {
+      // make the layer visible by default
+      'visibility': 'visible'
+    },
+    'paint': {
+      'line-color': '#5a3b01',
+      'line-width': 0.75
+    }
+  });
+
+  // add a new vector tile source with ID '2012_june'
+  map.addSource('2012_june', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.10b1jvcr'
+  });
+  map.addLayer({
+    'id': '2012_june',
+    'type': 'fill',
+    'source': '2012_june',
+    'source-layer': '2012_June-du1cip',
+    'layout': {
+      // make the layer invisible by default
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': '#5c98ec',
+      'fill-outline-color': '#3f6aa2',
+      'fill-opacity': 0.5
+    }
+  });
+
+  // add a new vector tile source with ID '2012_march'
+  map.addSource('2012_march', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.0tfolhpe'
+  });
+  map.addLayer({
+    'id': '2012_march',
+    'type': 'fill',
+    'source': '2012_march',
+    'source-layer': '2012_March-dha9qt',
+    'layout': {
+      // make the layer invisible by default
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': '#5c98ec',
+      'fill-outline-color': '#3f6aa2',
+      'fill-opacity': 0.5
+    }
+  });
+
+  // add a new vector tile source with ID '2007_june'
+  map.addSource('2007_june', {
+    'type': 'vector',
+    url: 'mapbox://turnerryan.1r1slzvk'
+  });
+  map.addLayer({
+    'id': '2007_june',
+    'type': 'fill',
+    'source': '2007_june',
+    'source-layer': '2007_June-9ihdn9',
+    'layout': {
+      // make the layer invisible by default
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': '#5c98ec',
+      'fill-outline-color': '#3f6aa2',
+      'fill-opacity': 0.5
+    }
+  });
+
+  // add a new vector tile source with ID '1998_june'
+  map.addSource('1998_june', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.dzarvkqo'
+  });
+  map.addLayer({
+    'id': '1998_june',
+    'type': 'fill',
+    'source': '1998_june',
+    'source-layer': '1998_June-cuobko',
+    'layout': {
+      // make the layer invisible by default
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': '#5c98ec',
+      'fill-outline-color': '#3f6aa2',
+      'fill-opacity': 0.5
+    }
+  });
+
+  // add a new vector tile source with ID '1990_april'
+  map.addSource('1990_april', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.3995o3k8'
+  });
+  map.addLayer({
+    'id': '1990_april',
+    'type': 'fill',
+    'source': '1990_april',
+    'source-layer': '1990_April-4tr05e',
+    'layout': {
+      // make the layer invisible by default
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': '#5c98ec',
+      'fill-outline-color': '#3f6aa2',
+      'fill-opacity': 0.5
+    }
+  });
+
+  // add a new vector tile source with ID 'gippsland_building_footprints'
+  map.addSource('gippsland_building_footprints', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.57stmsm3'
+  });
+  map.addLayer({
+    'id': 'gippsland_building_footprints',
+    'type': 'fill',
+    'source': 'gippsland_building_footprints',
+    'source-layer': 'Gippsland_Building_Footprints-9yo94i',
+    'layout': {
+      // make the layer visible by default
+      'visibility': 'visible'
+    },
+    'paint': {
+      'fill-color': '#b35a2a',
+      'fill-outline-color': '#663318'
+    }
+  });
+
+  // add a new vector tile source with ID 'bairnsdale_airport_weather_station'
+  map.addSource('bairnsdale_airport_weather_station', {
+    type: 'vector',
+    url: 'mapbox://turnerryan.64yxhetl'
+  });
+  map.addLayer({
+    'id': 'bairnsdale_airport_weather_station',
+    'type': 'circle',
+    'source': 'bairnsdale_airport_weather_station',
+    'source-layer': 'Bairnsdale_Airport_Weather_St-0pn66u',
+    'layout': {
+      // make the layer visible by default
+      'visibility': 'visible'
+    },
+    'paint': {
+      'circle-color': '#954aa2',
+      'circle-stroke-color': '#753a80'
+    }
+  });
+});
+
+// set up the legend after the last frame rendered before the map enters an "idle" state
+map.on('idle', () => {
+  // enumerate ids of the layers
+  const toggleableLayerIds = ['2012_june', '2012_march', '2007_june', '1998_june', '1990_april'];
+  // set up the corresponding toggle button for each layer
+  for (const id of toggleableLayerIds) {
+    // skip layers that already have a button set up
+    if (document.getElementById(id)) {
+      continue;
+    }
+    // create a link
+    const link = document.createElement('a');
+    link.id = id;
+    link.href = '#';
+    link.textContent = id;
+    link.className = 'active';
+    // show or hide layer when the toggle is clicked
+    link.onclick = function(e) {
+      const clickedLayer = this.textContent;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const visibility = map.getLayoutProperty(
+        clickedLayer,
+        'visibility'
+      );
+      // toggle layer visibility by changing the layout object's visibility property
+      if (visibility === 'none') {
+        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        this.className = '';
+      } else {
+        this.className = 'active';
+        map.setLayoutProperty(
+          clickedLayer,
+          'visibility',
+          'none'
+        );
+      }
+    };
+    const layers = document.getElementById('menu');
+    layers.appendChild(link);
+  }
+});
+
+// change mouse when hovering over weather station
+map.on('mouseenter', 'bairnsdale_airport_weather_station', function() {
+  map.getCanvas().style.cursor = 'pointer';
+});
+// change mouse when the mouse leaves the weather station
+map.on('mouseleave', 'bairnsdale_airport_weather_station', function() {
+  map.getCanvas().style.cursor = '';
+});
+// add click function which shows the weather station name
+map.on('click', 'bairnsdale_airport_weather_station', function(e) {
+  new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML(e.features[0].properties.name)
+    .addTo(map);
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+
+map.addControl(new mapboxgl.FullscreenControl({
+  container: document.querySelector('body')
+}));
+
+// function to run when the button is clicked
+function handleClick() {
+  console.log('Button clicked');
+  // fetch JSON data from the API
+  fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Bairnsdale%20Victoria?unitGroup=metric&key=Z9LWTBSVUDEAJP9GBG2AUHTVT&contentType=json')
+    .then(response => response.json())
+    .then(data => {
+      // if rainfall is greater than 50mm, add the warning area overlay
+      if (data.currentConditions.precip > 50) {
+        map.addSource('sa2_areas_flood_threat', {
+          type: 'vector',
+          url: 'mapbox://turnerryan.4dmev0af'
+        });
+        map.addLayer({
+          'id': 'sa2_areas_flood_threat',
+          'type': 'fill',
+          'source': 'sa2_areas_flood_threat',
+          'source-layer': 'SA2_Areas_Flood_Threat-8988v9',
+          'layout': {
+            // make the layer visible by default
+            'visibility': 'visible'
+          },
+          'paint': {
+            'fill-color': '#ff0000',
+            'fill-outline-color': '#b10000',
+            'fill-opacity': 0.25
+          }
+        });
+      }
+    })
+    .catch(error => {
+      console.log('Error fetching API data:', error);
+    });
+}
+
+// add a click event listener to the button
+var button = document.getElementById('button');
+button.addEventListener('click', handleClick);
+
+// function to run when the button is clicked
+function addTextToMap() {
+  // fetch data from the Visual Crossing Weather API
+  fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Bairnsdale%20Victoria?unitGroup=metric&key=Z9LWTBSVUDEAJP9GBG2AUHTVT&contentType=json')
+    .then(response => response.json())
+    .then(data => {
+      // extract the current conditions, preciptation from the API response
+      var fetchraindata = (JSON.stringify(data.currentConditions.precip)) + ' mm';
+      console.log(fetchraindata);
+      // create a new HTML element for the text
+      var textElement = document.createElement('div');
+      textElement.textContent = fetchraindata;
+      textElement.className = 'map-fetchraindata';
+      // append the text element to the map container
+      var container = map.getContainer();
+      container.appendChild(textElement);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+// add a click event listener to the button
+var button = document.getElementById('button');
+button.addEventListener('click', addTextToMap);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.title-box {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  left: 10px;
+  padding: 0px 10px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  font-family: Trebuchet MS, sans-serif;
+}
+
+.title {
+  text-align: left;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.information {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  top: 120px;
+  left: 10px;
+  padding: 0px 10px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  font-family: Trebuchet MS, sans-serif;
+}
+
+.info {
+  text-align: left;
+  font-size: 12px;
+  width: 318px;
+}
+
+.description {
+  text-align: left;
+  font-size: 17px;
+}
+
+.legend {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 30px;
+  right: 10px;
+  width: 122px;
+  height: 227px;
+  padding: 0px 10px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  font-family: Trebuchet MS, sans-serif;
+}
+
+.title2 {
+  text-align: center;
+  font-size: 16px;
+}
+
+.container {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 270px;
+  right: 10px;
+  width: 122px;
+  height: 145px;
+  padding: 0px 10px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+}
+
+.rainreading {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 350px;
+  right: 20px;
+  width: 98px;
+  height: 50px;
+  padding: 0px 10px;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-family: Trebuchet MS, sans-serif;
+}
+
+#button {
+  position: absolute;
+  bottom: 280px;
+  right: 20px;
+  width: 122px;
+  height: 60px;
+  border-radius: 10px;
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 18px;
+  background-color: rgba(92, 152, 236);
+  color: #ffffff;
+}
+
+#button:hover {
+  color: #b3b3b3;
+  background-color: #4676b5;
+  cursor: pointer;
+}
+
+#menu {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  width: 120px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  font-family: Trebuchet MS, sans-serif;
+}
+
+#menu a {
+  font-size: 12px;
+  background-color: #5c98ec;
+  color: #ffffff;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+#menu a:last-child {
+  border: none;
+}
+
+#menu a:hover {
+  background-color: #4676b5;
+  color: #ffffff;
+}
+
+#menu a.active {
+  background-color: #ffffff;
+  color: #5c98ec;
+}
+
+#menu a.active:hover {
+  background-color: #4676b5;
+  color: #ffffff;
+}
+
+.map-fetchraindata {
+  position: absolute;
+  bottom: 367px;
+  right: 36px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #202020;
+  font-family: Trebuchet MS, sans-serif;
+  z-index: 2;
+}
+
+.mapboxgl-popup {
+  max-width: 220px;
+}
+
+.mapboxgl-popup-content {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Trebuchet MS, sans-serif;
+  height: 14px;
+}
+
+#license {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 30px;
+  right: 160px;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
